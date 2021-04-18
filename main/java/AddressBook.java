@@ -5,6 +5,10 @@ public class AddressBook {
     List<Contacts> contactList = new ArrayList<>();
     ScannerForAddressBook scannerForAddressBook = new ScannerForAddressBook();
     
+    public List<Contacts> getContactList() {
+        return contactList;
+    }
+    
     @Override
     public String toString() {
         return "ContactManager{" + "contactList=" + contactList + '}';
@@ -141,13 +145,81 @@ public class AddressBook {
     }
     
     /**
+     * asks the user for name and returns it
+     *
+     * @return
+     */
+    private String getCityOrStateName() {
+        System.out.println("Enter city/state name");
+        return scannerForAddressBook.scannerProvider().nextLine();
+    }
+    
+    /**
+     * checks the list for city/state
+     *
+     * @param name city/state name given by user
+     * @return true/false
+     */
+    private boolean isCityOrStateExist(String name) {
+        return contactList.stream()
+                .anyMatch(personElement ->
+                        personElement.getCity().equals(name) ||
+                                personElement.getState().equals(name));
+    }
+    
+    /**
+     * to find contact by city/state
+     *
+     * @param name
+     * @return
+     */
+    private Contacts searchContactByCityOrState(String name) {
+        Contacts foundContact = contactList.stream()
+                .filter(contact -> contact.getState().equals(name) ||
+                        contact.getCity().equals(name))
+                .findFirst().orElse(null);
+        return foundContact;
+    }
+    
+    /**
+     * finds the contact by various means
+     */
+    private void findContactOptions() {
+        System.out.println("Select the option: \n1.find by contact name\n2.find by city/state\n3.exit");
+        int option = scannerForAddressBook.scannerProvider().nextInt();
+        
+        switch(option) {
+            case 1:
+                String name1 = getName();
+                if(isContactExist(name1)) {
+                    Contacts contact1 = getContact(name1);
+                    System.out.println("Contact " + name1 + ": " + contact1);
+                } else {
+                    System.out.println("Contact does not exists!");
+                }
+                break;
+            case 2:
+                String name2 = getCityOrStateName();
+                if(isCityOrStateExist(name2)) {
+                    Contacts contact = searchContactByCityOrState(name2);
+                    System.out.println("Contact from city/state " + name2 + ": " + contact);
+                } else {
+                    System.out.println("City/State does not exists!");
+                }
+                break;
+            default:
+                System.out.println("Thank you!");
+        }
+    }
+    
+    /**
      * to access the book
      */
     public void accessAddressBook() {
         boolean isExit = false;
         while(!isExit) {
             System.out.println("Select option: \n1.Add Contact\n2.Edit Contact\n" +
-                                                "3.Delete Contact\n4.Exit");
+                                                "3.Delete Contact\n4.Find contact\n5.Exit");
             int option = scannerForAddressBook.scannerProvider().nextInt();
             switch(option) {
                 case 1:
@@ -172,6 +244,9 @@ public class AddressBook {
                     } else {
                         System.out.println("Contact does not exists!");
                     }
+                    break;
+                case 4:
+                    findContactOptions();
                     break;
                 default:
                     System.out.println("Thanks!");
