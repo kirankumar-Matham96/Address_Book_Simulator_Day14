@@ -143,7 +143,7 @@ public class AddressBook {
     /**
      * to access the book
      */
-    public void accessContact() {
+    public void accessAddressBook() {
         boolean isExit = false;
         while(!isExit) {
             System.out.println("Select option: \n1.Add Contact\n2.Edit Contact\n" +
@@ -151,11 +151,7 @@ public class AddressBook {
             int option = scannerForAddressBook.scannerProvider().nextInt();
             switch(option) {
                 case 1:
-                    if(!isContactExist(getName())) {
                         addContact();
-                    } else {
-                        System.out.println("Contact already exists!");
-                    }
                     break;
                 case 2:
                     if(isContactExist(getName())) {
