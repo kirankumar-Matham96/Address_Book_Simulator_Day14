@@ -6,5 +6,6 @@ public class AddressBookSimulator {
         System.out.println("Welcome to address book simulator!");
         AddressBook addressBook = new AddressBook();
         addressBook.addContact();
+        addressBook.editDetails();
     }
 }
