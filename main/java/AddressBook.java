@@ -151,7 +151,11 @@ public class AddressBook {
             int option = scannerForAddressBook.scannerProvider().nextInt();
             switch(option) {
                 case 1:
+                    if(!isContactExist(getName())) {
                         addContact();
+                    } else {
+                        System.out.println("Contact already exists!");
+                    }
                     break;
                 case 2:
                     if(isContactExist(getName())) {
