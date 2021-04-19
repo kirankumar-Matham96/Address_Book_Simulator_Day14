@@ -42,8 +42,7 @@ public class AddressBook {
     /**
      * edits the contact details of selected name
      */
-    public void editDetails() {
-        String name = getName();
+    public void editDetails(String name) {
         if(isContactExist(name) == true) {
             Contacts contact = getContact(name);
             boolean isExit = false;
@@ -231,16 +230,17 @@ public class AddressBook {
                     }
                     break;
                 case 2:
-                    if(isContactExist(getName())) {
-                        editDetails();
+                    String name = getName();
+                    if(isContactExist(name)) {
+                        editDetails(name);
                     } else {
                         System.out.println("Contact does not exists!");
                     }
                     break;
                 case 3:
-                    String name = getName();
-                    if(isContactExist(name)) {
-                        Contacts contact = getContact(name);
+                    String name1 = getName();
+                    if(isContactExist(name1)) {
+                        Contacts contact = getContact(name1);
                         deleteContact(contact);
                     } else {
                         System.out.println("Contact does not exists!");
