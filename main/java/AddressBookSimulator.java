@@ -32,11 +32,9 @@ public class AddressBookSimulator {
                     break;
                 case 3:
                     addressBookSimulator.searchByName();
-                    
                     break;
                 case 4:
                     addressBookSimulator.searchContactByCityOrState();
-                    
                     break;
                 case 5:
                     addressBookSimulator.showContactsByCity();
